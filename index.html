@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Rapot - Admin Dashboard</title>
+    <link rel="manifest" href="manifest_admin.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        .nav-active { background-color: #1e293b; border-left: 4px solid #3b82f6; }
+        .hidden-section { display: none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col transition-all duration-300">
+        <div class="p-6 text-center border-b border-slate-700">
+            <h1 class="text-2xl font-bold text-blue-400"><i class="fas fa-university mr-2"></i>E-Rapot Pro</h1>
+            <p class="text-xs text-slate-400 mt-1">Admin Kampus</p>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li><a href="#" onclick="showSection('dashboard')" class="block py-3 px-6 hover:bg-slate-800 nav-btn nav-active" data-target="dashboard"><i class="fas fa-tachometer-alt mr-3 w-5"></i> Dashboard</a></li>
+                <li><a href="#" onclick="showSection('kelas')" class="block py-3 px-6 hover:bg-slate-800 nav-btn" data-target="kelas"><i class="fas fa-users mr-3 w-5"></i> Master Kelas</a></li>
+                <li><a href="#" onclick="showSection('mapel')" class="block py-3 px-6 hover:bg-slate-800 nav-btn" data-target="mapel"><i class="fas fa-book mr-3 w-5"></i> Master Mapel</a></li>
+                <li><a href="#" onclick="showSection('guru')" class="block py-3 px-6 hover:bg-slate-800 nav-btn" data-target="guru"><i class="fas fa-chalkboard-teacher mr-3 w-5"></i> Master Asatidzah</a></li>
+                <li><a href="#" onclick="showSection('monitor')" class="block py-3 px-6 hover:bg-slate-800 nav-btn" data-target="monitor"><i class="fas fa-chart-line mr-3 w-5"></i> Monitor Nilai</a></li>
+                <li><a href="#" onclick="showSection('cetak')" class="block py-3 px-6 hover:bg-slate-800 nav-btn" data-target="cetak"><i class="fas fa-print mr-3 w-5"></i> Cetak Rapot</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
+        <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+            <h2 id="pageTitle" class="text-xl font-semibold text-slate-700">Dashboard</h2>
+            <div class="flex items-center space-x-3">
+                <span class="text-sm font-medium bg-blue-100 text-blue-800 py-1 px-3 rounded-full">Tahun Ajaran: 2026 Genap</span>
+            </div>
+        </header>
+
+        <div class="p-6">
+            <!-- SECTION: Dashboard -->
+            <section id="dashboard" class="content-section">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <h3 class="text-slate-500 text-sm font-semibold mb-1">Total Siswa</h3>
+                        <p id="statSiswa" class="text-3xl font-bold text-slate-800">0</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
+                        <h3 class="text-slate-500 text-sm font-semibold mb-1">Total Kelas</h3>
+                        <p id="statKelas" class="text-3xl font-bold text-slate-800">0</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
+                        <h3 class="text-slate-500 text-sm font-semibold mb-1">Total Asatidzah</h3>
+                        <p id="statGuru" class="text-3xl font-bold text-slate-800">0</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-500">
+                        <h3 class="text-slate-500 text-sm font-semibold mb-1">Total Mapel</h3>
+                        <p id="statMapel" class="text-3xl font-bold text-slate-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="font-semibold text-lg mb-4">Grafik Rata-Rata IPK per Kelas</h3>
+                    <canvas id="ipkChart" height="100"></canvas>
+                </div>
+            </section>
+
+            <!-- SECTION: Master Kelas -->
+            <section id="kelas" class="content-section hidden-section">
+                <div class="flex gap-6">
+                    <div class="w-1/3 bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="font-semibold text-lg mb-4">Tambah Kelas</h3>
+                        <input type="text" id="inputNamaKelas" placeholder="Nama Kelas (ex: Aly 1)" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <button onclick="simpanKelas()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Simpan Kelas</button>
+                        
+                        <h3 class="font-semibold text-lg mb-4 mt-8">Tambah Siswa</h3>
+                        <select id="selectKelasSiswa" class="w-full border p-2 rounded mb-3 focus:outline-blue-500"></select>
+                        <input type="text" id="inputNamaSiswa" placeholder="Nama Lengkap Siswa" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <button onclick="simpanSiswa()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Tambahkan Siswa</button>
+                    </div>
+                    <div class="w-2/3 bg-white p-6 rounded-xl shadow-sm overflow-y-auto" style="max-height: 75vh;">
+                        <h3 class="font-semibold text-lg mb-4">Daftar Kelas & Siswa</h3>
+                        <div id="listKelasContainer" class="space-y-4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Master Mapel -->
+            <section id="mapel" class="content-section hidden-section">
+                <div class="flex gap-6">
+                    <div class="w-1/3 bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="font-semibold text-lg mb-4">Tambah Mata Pelajaran</h3>
+                        <input type="text" id="inputNamaMapel" placeholder="Nama Mapel (ex: Fiqih)" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <input type="number" id="inputSksMapel" placeholder="Bobot SKS (ex: 3)" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <button onclick="simpanMapel()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Simpan Mapel</button>
+                    </div>
+                    <div class="w-2/3 bg-white p-6 rounded-xl shadow-sm overflow-y-auto" style="max-height: 75vh;">
+                        <h3 class="font-semibold text-lg mb-4">Daftar Mata Pelajaran</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100"><th class="p-3 border-b">Nama Mapel</th><th class="p-3 border-b">SKS</th><th class="p-3 border-b text-center">Aksi</th></tr>
+                            </thead>
+                            <tbody id="tableMapel"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Master Guru -->
+            <section id="guru" class="content-section hidden-section">
+                <div class="flex gap-6">
+                    <div class="w-1/3 bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="font-semibold text-lg mb-4">Tambah Asatidzah</h3>
+                        <input type="text" id="inputNamaGuru" placeholder="Nama Asatidzah" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <input type="password" id="inputPinGuru" placeholder="PIN 6 Digit (ex: 123456)" class="w-full border p-2 rounded mb-3 focus:outline-blue-500">
+                        <button onclick="simpanGuru()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Simpan Guru</button>
+                        
+                        <h3 class="font-semibold text-lg mb-4 mt-8">Mapping Tugas Mengajar</h3>
+                        <select id="mapPilihGuru" class="w-full border p-2 rounded mb-3"></select>
+                        <select id="mapPilihKelas" class="w-full border p-2 rounded mb-3"></select>
+                        <select id="mapPilihMapel" class="w-full border p-2 rounded mb-3"></select>
+                        <button onclick="simpanMapping()" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">Assign Tugas</button>
+                    </div>
+                    <div class="w-2/3 bg-white p-6 rounded-xl shadow-sm overflow-y-auto" style="max-height: 75vh;">
+                        <h3 class="font-semibold text-lg mb-4">Daftar Asatidzah & Tugas</h3>
+                        <div id="listGuruContainer" class="space-y-4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Monitor Nilai -->
+            <section id="monitor" class="content-section hidden-section">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="font-semibold text-lg mb-4">Status Penginputan Nilai</h3>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100">
+                                <th class="p-3 border-b">Kelas</th>
+                                <th class="p-3 border-b">Mata Pelajaran</th>
+                                <th class="p-3 border-b">Guru Pengampu</th>
+                                <th class="p-3 border-b">Status Pengisian</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableMonitor"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION: Cetak Rapot -->
+            <section id="cetak" class="content-section hidden-section">
+                <div class="bg-white p-6 rounded-xl shadow-sm mb-6 flex gap-4">
+                    <select id="cetakPilihKelas" onchange="loadSiswaUntukCetak()" class="border p-2 rounded flex-1"><option value="">Pilih Kelas...</option></select>
+                    <select id="cetakPilihSiswa" class="border p-2 rounded flex-1"><option value="">Pilih Siswa...</option></select>
+                    <button onclick="generateRapot()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"><i class="fas fa-search mr-2"></i>Tampilkan</button>
+                    <button onclick="downloadPDF()" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"><i class="fas fa-file-pdf mr-2"></i>PDF</button>
+                </div>
+
+                <div id="rapotPreview" class="bg-white p-10 rounded-xl shadow-sm max-w-4xl mx-auto border" style="display: none; min-height: 800px;">
+                    <div class="text-center mb-8 border-b-4 border-double border-slate-800 pb-4">
+                        <h1 class="text-3xl font-bold uppercase tracking-wider text-slate-800">Transkrip Nilai Akademik</h1>
+                        <p class="text-lg text-slate-600">Tahun Ajaran 2026 Genap</p>
+                    </div>
+                    <div class="flex justify-between mb-6 text-sm">
+                        <table class="w-1/2">
+                            <tr><td class="py-1 font-semibold w-1/3">Nama Lengkap</td><td>: <span id="r_nama" class="uppercase font-bold"></span></td></tr>
+                            <tr><td class="py-1 font-semibold w-1/3">Kelas</td><td>: <span id="r_kelas"></span></td></tr>
+                        </table>
+                    </div>
+                    <table class="w-full text-left border-collapse border border-slate-400 text-sm mb-6">
+                        <thead>
+                            <tr class="bg-slate-200 text-slate-800">
+                                <th class="p-2 border border-slate-400 text-center w-10">No</th>
+                                <th class="p-2 border border-slate-400">Mata Pelajaran</th>
+                                <th class="p-2 border border-slate-400 text-center w-16">SKS</th>
+                                <th class="p-2 border border-slate-400 text-center w-24">Nilai Angka</th>
+                                <th class="p-2 border border-slate-400 text-center w-24 bg-blue-100">Rata2 Kelas</th>
+                                <th class="p-2 border border-slate-400 text-center w-20">Huruf</th>
+                                <th class="p-2 border border-slate-400 text-center w-20">Mutu</th>
+                                <th class="p-2 border border-slate-400 text-center w-24">Total Mutu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="r_tbody"></tbody>
+                    </table>
+                    <div class="flex justify-end">
+                        <div class="w-1/2 bg-slate-50 p-5 border border-slate-400 rounded-lg shadow-sm">
+                            <p class="flex justify-between border-b border-slate-300 pb-2 mb-2"><span>Total SKS</span> <strong id="r_tsks" class="text-lg">0</strong></p>
+                            <p class="flex justify-between border-b border-slate-300 pb-2 mb-2"><span>Total Mutu</span> <strong id="r_tmutu" class="text-lg">0.00</strong></p>
+                            <p class="flex justify-between border-b border-slate-300 pb-2 mb-2 text-xl text-blue-800 font-bold"><span>Indeks Prestasi (IP)</span> <strong id="r_ip">0.00</strong></p>
+                            <p class="flex justify-between pt-1"><span>Peringkat Kelas</span> <strong id="r_rank" class="text-slate-700">-</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Firebase & Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, push, remove, onValue } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDe005OXrgGH2oojwwUGnsmzEr0RxzmnMI",
+            authDomain: "rapotmaster-attauhid.firebaseapp.com",
+            databaseURL: "https://rapotmaster-attauhid-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "rapotmaster-attauhid",
+            storageBucket: "rapotmaster-attauhid.firebasestorage.app",
+            messagingSenderId: "759283304078",
+            appId: "1:759283304078:web:f9fc81f8426fa2e69bebdf"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Global State
+        let masterKelas = {};
+        let masterMapel = {};
+        let masterGuru = {};
+        let dataNilai = {};
+
+        // Standar Penilaian
+        function hitungGrade(nilai) {
+            if (nilai >= 85) return { huruf: 'A', indeks: 4.00 };
+            if (nilai >= 70) return { huruf: 'B', indeks: 3.00 };
+            if (nilai >= 55) return { huruf: 'C', indeks: 2.00 };
+            if (nilai >= 40) return { huruf: 'D', indeks: 1.00 };
+            return { huruf: 'E', indeks: 0.00 };
+        }
+
+        // Navigation
+        window.showSection = function(sectionId) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden-section'));
+            document.getElementById(sectionId).classList.remove('hidden-section');
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('nav-active'));
+            document.querySelector(`[data-target="${sectionId}"]`).classList.add('nav-active');
+            
+            const titles = {
+                'dashboard': 'Dashboard Utama', 'kelas': 'Master Data Kelas', 'mapel': 'Master Mata Pelajaran',
+                'guru': 'Master Asatidzah', 'monitor': 'Monitor Input Nilai', 'cetak': 'Cetak Rapot Akademik'
+            };
+            document.getElementById('pageTitle').innerText = titles[sectionId];
+        };
+
+        // Realtime Listeners
+        onValue(ref(db, 'Master/Kelas'), (snapshot) => { masterKelas = snapshot.val() || {}; renderUI(); });
+        onValue(ref(db, 'Master/Mapel'), (snapshot) => { masterMapel = snapshot.val() || {}; renderUI(); });
+        onValue(ref(db, 'Master/Guru'), (snapshot) => { masterGuru = snapshot.val() || {}; renderUI(); });
+        onValue(ref(db, 'TahunAjaran/2026_Genap/Nilai'), (snapshot) => { dataNilai = snapshot.val() || {}; updateDashboard(); renderMonitor(); });
+
+        function renderUI() {
+            updateDashboard(); renderKelas(); renderMapel(); renderGuru(); populateSelects(); renderMonitor();
+        }
+
+        // --- DASHBOARD ---
+        let myChart = null;
+        function updateDashboard() {
+            let totalSiswa = 0;
+            let ipKelasMap = {};
+
+            Object.keys(masterKelas).forEach(idKelas => {
+                const siswaArr = masterKelas[idKelas].siswa || {};
+                const jmlSiswa = Object.keys(siswaArr).length;
+                totalSiswa += jmlSiswa;
+
+                let totalIpkKelas = 0;
+                Object.keys(siswaArr).forEach(idSiswa => {
+                    let totalMutu = 0; let totalSks = 0;
+                    Object.keys(masterMapel).forEach(idMapel => {
+                        let sks = parseFloat(masterMapel[idMapel].sks) || 0;
+                        let nilai = dataNilai[idKelas]?.[idMapel]?.[idSiswa]?.nilaiAngka;
+                        if(nilai !== undefined) {
+                            totalMutu += (hitungGrade(nilai).indeks * sks);
+                            totalSks += sks;
+                        }
+                    });
+                    if(totalSks > 0) totalIpkKelas += (totalMutu / totalSks);
+                });
+                ipKelasMap[masterKelas[idKelas].nama] = jmlSiswa > 0 ? (totalIpkKelas / jmlSiswa).toFixed(2) : 0;
+            });
+
+            document.getElementById('statSiswa').innerText = totalSiswa;
+            document.getElementById('statKelas').innerText = Object.keys(masterKelas).length;
+            document.getElementById('statGuru').innerText = Object.keys(masterGuru).length;
+            document.getElementById('statMapel').innerText = Object.keys(masterMapel).length;
+
+            const ctx = document.getElementById('ipkChart').getContext('2d');
+            if(myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(ipKelasMap),
+                    datasets: [{ label: 'Rata-Rata IP Kelas', data: Object.values(ipKelasMap), backgroundColor: '#3b82f6', borderRadius: 4 }]
+                },
+                options: { scales: { y: { beginAtZero: true, max: 4.0 } } }
+            });
+        }
+
+        // --- CRUD KELAS & SISWA ---
+        window.simpanKelas = function() {
+            const nama = document.getElementById('inputNamaKelas').value;
+            if(!nama) return alert('Nama kelas wajib diisi!');
+            push(ref(db, 'Master/Kelas'), { nama: nama });
+            document.getElementById('inputNamaKelas').value = '';
+        };
+
+        window.simpanSiswa = function() {
+            const idKelas = document.getElementById('selectKelasSiswa').value;
+            const nama = document.getElementById('inputNamaSiswa').value;
+            if(!idKelas || !nama) return alert('Pilih kelas dan isi nama!');
+            push(ref(db, `Master/Kelas/${idKelas}/siswa`), { nama: nama });
+            document.getElementById('inputNamaSiswa').value = '';
+        };
+
+        function renderKelas() {
+            let html = '';
+            for(let id in masterKelas) {
+                const k = masterKelas[id];
+                const siswaHtml = Object.entries(k.siswa || {}).map(([sId, s]) => `<span class="bg-slate-200 text-xs px-2 py-1 rounded m-1 inline-block">${s.nama} <button onclick="hapusSiswa('${id}','${sId}')" class="text-red-500 ml-1"><i class="fas fa-times"></i></button></span>`).join('');
+                html += `<div class="border p-4 rounded bg-slate-50"><h4 class="font-bold border-b pb-2 mb-2 text-blue-800">${k.nama} <button onclick="hapusKelas('${id}')" class="text-red-500 float-right text-sm px-2 hover:bg-red-100 rounded"><i class="fas fa-trash"></i></button></h4><div class="mt-2">${siswaHtml || '<span class="text-gray-400 italic text-sm">Belum ada siswa</span>'}</div></div>`;
+            }
+            document.getElementById('listKelasContainer').innerHTML = html;
+        }
+
+        window.hapusKelas = function(id) { if(confirm('Yakin hapus kelas ini beserta siswanya?')) remove(ref(db, `Master/Kelas/${id}`)); };
+        window.hapusSiswa = function(idKelas, idSiswa) { if(confirm('Hapus siswa?')) remove(ref(db, `Master/Kelas/${idKelas}/siswa/${idSiswa}`)); };
+
+        // --- CRUD MAPEL ---
+        window.simpanMapel = function() {
+            const nama = document.getElementById('inputNamaMapel').value;
+            const sks = document.getElementById('inputSksMapel').value;
+            if(!nama || !sks) return alert('Lengkapi data mapel!');
+            push(ref(db, 'Master/Mapel'), { nama: nama, sks: parseInt(sks) });
+            document.getElementById('inputNamaMapel').value = ''; document.getElementById('inputSksMapel').value = '';
+        };
+
+        function renderMapel() {
+            let html = '';
+            for(let id in masterMapel) {
+                html += `<tr class="border-b hover:bg-slate-50"><td class="p-3">${masterMapel[id].nama}</td><td class="p-3">${masterMapel[id].sks}</td><td class="p-3 text-center"><button onclick="hapusMapel('${id}')" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button></td></tr>`;
+            }
+            document.getElementById('tableMapel').innerHTML = html;
+        }
+        window.hapusMapel = function(id) { if(confirm('Hapus mata pelajaran?')) remove(ref(db, `Master/Mapel/${id}`)); };
+
+        // --- CRUD GURU & MAPPING ---
+        window.simpanGuru = function() {
+            const nama = document.getElementById('inputNamaGuru').value;
+            const pin = document.getElementById('inputPinGuru').value;
+            if(!nama || pin.length < 4) return alert('Nama dan PIN (min 4 digit) wajib diisi!');
+            push(ref(db, 'Master/Guru'), { nama: nama, pin: pin, tugasMengajar: [] });
+            document.getElementById('inputNamaGuru').value = ''; document.getElementById('inputPinGuru').value = '';
+        };
+
+        window.simpanMapping = function() {
+            const idGuru = document.getElementById('mapPilihGuru').value;
+            const idKelas = document.getElementById('mapPilihKelas').value;
+            const idMapel = document.getElementById('mapPilihMapel').value;
+            if(!idGuru || !idKelas || !idMapel) return alert('Pilih Guru, Kelas, dan Mapel!');
+            
+            let tugasRef = ref(db, `Master/Guru/${idGuru}/tugasMengajar`);
+            let newTugas = masterGuru[idGuru].tugasMengajar || [];
+            
+            if(!newTugas.some(t => t.idKelas === idKelas && t.idMapel === idMapel)){
+                newTugas.push({ idKelas, idMapel });
+                set(tugasRef, newTugas).then(() => alert('Tugas berhasil di-assign!'));
+            } else { alert('Tugas tersebut sudah ada!'); }
+        };
+
+        function renderGuru() {
+            let html = '';
+            for(let id in masterGuru) {
+                const g = masterGuru[id];
+                const tugasHtml = (g.tugasMengajar || []).map((t, i) => {
+                    const kNama = masterKelas[t.idKelas]?.nama || 'Unknown';
+                    const mNama = masterMapel[t.idMapel]?.nama || 'Unknown';
+                    return `<div class="text-sm bg-indigo-50 text-indigo-800 px-3 py-1.5 rounded-full inline-flex items-center m-1 border border-indigo-200">
+                        ${kNama} - ${mNama} <button onclick="hapusTugas('${id}', ${i})" class="ml-2 text-red-500 hover:text-red-700"><i class="fas fa-times-circle"></i></button></div>`;
+                }).join('');
+                html += `<div class="border p-4 rounded bg-white shadow-sm mb-3"><h4 class="font-bold border-b pb-2 mb-3 flex items-center justify-between"><span class="text-lg"><i class="fas fa-user-tie text-slate-400 mr-2"></i>${g.nama}</span> <div><span class="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded mr-2 font-normal">PIN: ${g.pin}</span> <button onclick="hapusGuru('${id}')" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button></div></h4><div class="flex flex-wrap">${tugasHtml || '<span class="text-gray-400 text-sm">Belum ada penugasan</span>'}</div></div>`;
+            }
+            document.getElementById('listGuruContainer').innerHTML = html;
+        }
+        window.hapusTugas = function(idGuru, index) {
+            let tugas = masterGuru[idGuru].tugasMengajar; tugas.splice(index, 1);
+            set(ref(db, `Master/Guru/${idGuru}/tugasMengajar`), tugas);
+        };
+        window.hapusGuru = function(id) { if(confirm('Hapus data Guru?')) remove(ref(db, `Master/Guru/${id}`)); };
+
+        // --- POPULATE DROPDOWNS ---
+        function populateSelects() {
+            const optionsKelas = '<option value="">Pilih Kelas...</option>' + Object.entries(masterKelas).map(([id, k]) => `<option value="${id}">${k.nama}</option>`).join('');
+            const optionsMapel = '<option value="">Pilih Mapel...</option>' + Object.entries(masterMapel).map(([id, m]) => `<option value="${id}">${m.nama}</option>`).join('');
+            const optionsGuru = '<option value="">Pilih Asatidzah...</option>' + Object.entries(masterGuru).map(([id, g]) => `<option value="${id}">${g.nama}</option>`).join('');
+            
+            document.getElementById('selectKelasSiswa').innerHTML = optionsKelas;
+            document.getElementById('mapPilihKelas').innerHTML = optionsKelas;
+            document.getElementById('cetakPilihKelas').innerHTML = optionsKelas;
+            document.getElementById('mapPilihMapel').innerHTML = optionsMapel;
+            document.getElementById('mapPilihGuru').innerHTML = optionsGuru;
+        }
+
+        // --- MONITOR NILAI ---
+        function renderMonitor() {
+            let html = '';
+            for(let idGuru in masterGuru) {
+                const g = masterGuru[idGuru];
+                (g.tugasMengajar || []).forEach(t => {
+                    const kNama = masterKelas[t.idKelas]?.nama || 'Unknown';
+                    const mNama = masterMapel[t.idMapel]?.nama || 'Unknown';
+                    const totalSiswa = Object.keys(masterKelas[t.idKelas]?.siswa || {}).length;
+                    const dataTerisi = dataNilai[t.idKelas]?.[t.idMapel] || {};
+                    const jmlTerisi = Object.keys(dataTerisi).length;
+                    
+                    let statusHtml = '';
+                    if(totalSiswa === 0) statusHtml = `<span class="bg-gray-200 text-gray-600 px-2 py-1 rounded text-xs">Kosong</span>`;
+                    else if(jmlTerisi === totalSiswa) statusHtml = `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fas fa-check-circle mr-1"></i> Selesai (${jmlTerisi}/${totalSiswa})</span>`;
+                    else statusHtml = `<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-semibold"><i class="fas fa-spinner fa-spin mr-1"></i> Proses (${jmlTerisi}/${totalSiswa})</span>`;
+
+                    html += `<tr class="border-b hover:bg-slate-50"><td class="p-3">${kNama}</td><td class="p-3">${mNama}</td><td class="p-3"><i class="fas fa-user text-slate-300 mr-2"></i>${g.nama}</td><td class="p-3">${statusHtml}</td></tr>`;
+                });
+            }
+            document.getElementById('tableMonitor').innerHTML = html;
+        }
+
+        // --- CETAK RAPOT ---
+        window.loadSiswaUntukCetak = function() {
+            const idKelas = document.getElementById('cetakPilihKelas').value;
+            const selectSiswa = document.getElementById('cetakPilihSiswa');
+            if(!idKelas) { selectSiswa.innerHTML = '<option value="">Pilih Siswa...</option>'; return; }
+            const siswaArr = masterKelas[idKelas].siswa || {};
+            selectSiswa.innerHTML = '<option value="">Pilih Siswa...</option>' + Object.entries(siswaArr).map(([id, s]) => `<option value="${id}">${s.nama}</option>`).join('');
+        };
+
+        window.generateRapot = function() {
+            const idKelas = document.getElementById('cetakPilihKelas').value;
+            const idSiswa = document.getElementById('cetakPilihSiswa').value;
+            if(!idKelas || !idSiswa) return alert('Pilih kelas dan siswa terlebih dahulu!');
+
+            document.getElementById('rapotPreview').style.display = 'block';
+            document.getElementById('r_nama').innerText = masterKelas[idKelas].siswa[idSiswa].nama;
+            document.getElementById('r_kelas').innerText = masterKelas[idKelas].nama;
+
+            let html = '';
+            let totalSks = 0;
+            let grandTotalMutu = 0;
+            let no = 1;
+
+            let rataKelas = {};
+            for(let idM in masterMapel) {
+                let sum = 0, count = 0;
+                let siswaInKelas = masterKelas[idKelas].siswa || {};
+                for(let idS in siswaInKelas) {
+                    let n = dataNilai[idKelas]?.[idM]?.[idS]?.nilaiAngka;
+                    if(n !== undefined) { sum += n; count++; }
+                }
+                rataKelas[idM] = count > 0 ? (sum / count).toFixed(1) : '-';
+            }
+
+            for(let idMapel in masterMapel) {
+                const mapel = masterMapel[idMapel];
+                let nilaiRaw = dataNilai[idKelas]?.[idMapel]?.[idSiswa]?.nilaiAngka;
+                let barisHtml = '';
+                
+                if(nilaiRaw !== undefined) {
+                    let res = hitungGrade(nilaiRaw);
+                    let mutuTotal = res.indeks * mapel.sks;
+                    totalSks += mapel.sks;
+                    grandTotalMutu += mutuTotal;
+                    
+                    barisHtml = `<td class="p-2 border border-slate-400 text-center font-semibold">${nilaiRaw}</td><td class="p-2 border border-slate-400 text-center bg-blue-50 font-semibold">${rataKelas[idMapel]}</td><td class="p-2 border border-slate-400 text-center font-bold text-blue-800">${res.huruf}</td><td class="p-2 border border-slate-400 text-center">${res.indeks.toFixed(2)}</td><td class="p-2 border border-slate-400 text-center font-bold">${mutuTotal.toFixed(2)}</td>`;
+                } else {
+                    barisHtml = `<td class="p-2 border border-slate-400 text-center text-red-500 italic" colspan="5">Nilai belum masuk</td>`;
+                }
+
+                html += `<tr><td class="p-2 border border-slate-400 text-center">${no++}</td><td class="p-2 border border-slate-400">${mapel.nama}</td><td class="p-2 border border-slate-400 text-center">${mapel.sks}</td>${barisHtml}</tr>`;
+            }
+
+            document.getElementById('r_tbody').innerHTML = html;
+            document.getElementById('r_tsks').innerText = totalSks;
+            document.getElementById('r_tmutu').innerText = grandTotalMutu.toFixed(2);
+            
+            let ip = totalSks > 0 ? (grandTotalMutu / totalSks) : 0;
+            document.getElementById('r_ip').innerText = ip.toFixed(2);
+
+            let leaderboard = [];
+            for(let idS in masterKelas[idKelas].siswa) {
+                let tMutu = 0, tSks = 0;
+                for(let idM in masterMapel) {
+                    let n = dataNilai[idKelas]?.[idM]?.[idS]?.nilaiAngka;
+                    if(n !== undefined) {
+                        tMutu += hitungGrade(n).indeks * masterMapel[idM].sks;
+                        tSks += masterMapel[idM].sks;
+                    }
+                }
+                let s_ip = tSks > 0 ? tMutu/tSks : 0;
+                leaderboard.push({ id: idS, ip: s_ip });
+            }
+            leaderboard.sort((a,b) => b.ip - a.ip);
+            let rank = leaderboard.findIndex(l => l.id === idSiswa) + 1;
+            document.getElementById('r_rank').innerText = `${rank} dari ${leaderboard.length} Siswa`;
+        };
+
+        window.downloadPDF = function() {
+            const element = document.getElementById('rapotPreview');
+            const opt = { 
+                margin: 0.5, 
+                filename: `Rapot_${document.getElementById('r_nama').innerText.replace(/ /g, '_')}.pdf`, 
+                image: { type: 'jpeg', quality: 0.98 }, 
+                html2canvas: { scale: 2 }, 
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
+            };
+            html2pdf().set(opt).from(element).save();
+        };
+
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw_admin.js'); }); }
+    </script>
+</body>
+</html>
