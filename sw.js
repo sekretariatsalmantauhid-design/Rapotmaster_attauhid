@@ -1,5 +1,5 @@
 // UBAH ANGKA INI SETIAP KALI UPDATE index.html (Misal: v2, v3, v4)
-const CACHE_NAME = 'erapot-admin-v1.1'; 
+const CACHE_NAME = 'erapot-admin-v1.2'; 
 
 const urlsToCache = [
   './',
