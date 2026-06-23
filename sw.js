@@ -1,12 +1,14 @@
-// UBAH ANGKA INI SETIAP KALI UPDATE asatidzah.html (Misal: v2, v3, v4)
-const CACHE_NAME = 'erapot-guru-v1.1'; 
+// UBAH ANGKA INI SETIAP KALI UPDATE index.html (Misal: v2, v3, v4)
+const CACHE_NAME = 'erapot-admin-v1.3'; 
 
 const urlsToCache = [
   './',
-  './asatidzah.html',
-  './manifest_guru.json',
+  './index.html',
+  './manifest_admin.json',
   'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://cdn.jsdelivr.net/npm/chart.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js'
 ];
 
 // Install Service Worker & Paksa Langsung Aktif
@@ -15,7 +17,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Cache aplikasi Asatidzah versi baru siap!');
+        console.log('Cache aplikasi Master Admin versi baru siap!');
         return cache.addAll(urlsToCache);
       })
   );
@@ -38,7 +40,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            console.log('Menghapus cache Guru jadul:', cacheName);
+            console.log('Menghapus cache Admin jadul:', cacheName);
             return caches.delete(cacheName);
           }
         })
