@@ -768,17 +768,40 @@
                 if(nilaiRaw !== undefined) {
                     let res = getGradeInfo(nilaiRaw);
                     totalSks += mapel.sks; grandTotalBobot += (res.bobot * mapel.sks);
-                    barisHtml = `
-                        <td class="p-1 border border-gray-400 font-arab text-lg text-gray-500 align-middle" dir="rtl">-</td>
-                        <td class="p-1 border border-gray-400 align-middle"><span class="font-arab font-bold text-lg mr-2">${res.arabHuruf}</span> <span class="text-[10px]">${res.huruf}</span></td>
-                        <td class="p-1 border border-gray-400 align-middle text-[#8B6508]"><span class="font-arab font-bold text-lg mr-2">${res.arabKet}</span> <span class="text-[10px]">${res.ket}</span></td>
-                        <td class="p-1 border border-gray-400 align-middle font-bold text-sm text-red-600">${nilaiRaw}</td>`;
+                    let warnaNilai = (nilaiRaw <= 60) ? "text-red-600" : "text-black";
+                            barisHtml = `
+            <td class="p-1 border border-gray-400 font-arab text-[10px] text-gray-500 align-middle text-center" dir="rtl">-</td>
+            <td class="p-1 border border-gray-400 align-middle">
+                <div class="flex justify-between items-center w-full px-1">
+                    <span class="text-sm text-left text-slate-800 font-bold font-sans">${res.bobot.toFixed(2)}</span>
+                    <span class="font-arab font-bold text-[10px] text-right" dir="rtl">${res.arabHuruf}</span>
+                </div>
+            </td>
+            <td class="p-1 border border-gray-400 align-middle text-[#8B6508]">
+                <div class="flex justify-between items-center w-full px-1">
+                    <span class="text-xs text-left">${res.ket}</span>
+                    <span class="font-arab font-bold text-[10px] text-right" dir="rtl">${res.arabKet}</span>
+                </div>
+            </td>
+            <td class="p-1 border border-gray-400 align-middle font-bold text-sm ${warnaNilai} text-center">${nilaiRaw}</td>`;
+
                 } else {
                     barisHtml = `<td class="p-1 border border-gray-400 align-middle" colspan="4"></td>`;
                 }
 
                 // DI SINI LETAK PERBAIKAN KOLOM SKS, MAPEL, DAN NO URUT AGAR RATA TENGAH (align-middle) DAN SKS PROPORSIONAL (text-[11px])
-                html += `<tr>${barisHtml}<td class="p-1 border border-gray-400 align-middle text-center font-bold text-[11px] text-slate-700">${mapel.sks}</td><td class="p-1 border border-gray-400 align-middle text-right pr-4"><span class="mr-2 font-bold text-[10px]">${mapel.nama}</span> <span class="font-arab font-bold text-lg border-l border-gray-300 pl-2 ml-2" dir="rtl">${mapel.namaArab||''}</span></td><td class="p-1 border border-gray-400 align-middle text-center font-arab text-base">${no++}</td></tr>`;
+                html += `<tr>
+    ${barisHtml}
+    <td class="p-1 border border-gray-400 align-middle text-center font-bold text-[11px] text-slate-700">${mapel.sks}</td>
+    <td class="p-1 border border-gray-400 align-middle">
+        <div class="flex justify-between items-center w-full px-2">
+            <span class="text-sm text-left text-slate-800">${mapel.nama}</span>
+            <span class="font-arab font-bold text-[13px] text-right" dir="rtl">${mapel.namaArab || ''}</span>
+        </div>
+    </td>
+    <td class="p-1 border border-gray-400 align-middle text-center font-arab text-base">${no++}</td>
+</tr>`;
+
             }
 
             document.getElementById('r_tbody').innerHTML = html;
