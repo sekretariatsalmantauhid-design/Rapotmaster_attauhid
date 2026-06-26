@@ -333,7 +333,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-400 align-middle p-1 bg-gray-50" colspan="2"></td>
+                                <td class="border border-gray-400 align-middle p-1 bg-gray-50" colspan="2"id="r_keterangan_avg"></td>
                                 <td class="border border-gray-400 align-middle p-1 text-center font-bold" id="r_kesungguhan"></td>
                                 <td class="border border-gray-400 align-middle p-1 font-arab font-bold text-sm" dir="rtl">المجاهدة : <span class="font-sans font-normal text-[9px] ml-1 text-gray-600">Kesungguhan Santri</span></td>
                             </tr>
@@ -389,20 +389,17 @@
         let editMapelId = null; let editGuruId = null;
         let unsubKelas = null, unsubMapel = null, unsubGuru = null, unsubNilai = null, unsubWaliKelas = null;
 
-        function getGradeInfo(nilai) {
-            if (nilai >= 95) return { huruf: 'A plus',  arabHuruf: 'أ زائد', bobot: 4.00, ket: 'Istimewa', arabKet: 'ممتاز' };
-            if (nilai >= 90) return { huruf: 'A',       arabHuruf: 'أ',      bobot: 3.75, ket: 'Istimewa', arabKet: 'ممتاز' };
-            if (nilai >= 85) return { huruf: 'A minus', arabHuruf: 'أ ناقص', bobot: 3.50, ket: 'Istimewa', arabKet: 'ممتاز' };
-            if (nilai >= 80) return { huruf: 'B plus',  arabHuruf: 'ب زائد', bobot: 3.25, ket: 'Sangat Bagus', arabKet: 'جيد جدا' };
-            if (nilai >= 75) return { huruf: 'B',       arabHuruf: 'ب',      bobot: 3.00, ket: 'Sangat Bagus', arabKet: 'جيد جدا' };
-            if (nilai >= 70) return { huruf: 'B minus', arabHuruf: 'ب ناقص', bobot: 2.75, ket: 'Sangat Bagus', arabKet: 'جيد جدا' };
-            if (nilai >= 65) return { huruf: 'C plus',  arabHuruf: 'ج زائد', bobot: 2.50, ket: 'Bagus', arabKet: 'جيد' };
-            if (nilai >= 60) return { huruf: 'C',       arabHuruf: 'ج',      bobot: 2.25, ket: 'Bagus', arabKet: 'جيد' };
-            if (nilai >= 55) return { huruf: 'C minus', arabHuruf: 'ج ناقص', bobot: 2.00, ket: 'Bagus', arabKet: 'جيد' };
-            if (nilai >= 50) return { huruf: 'D plus',  arabHuruf: 'د زائد', bobot: 1.50, ket: 'Cukup', arabKet: 'مقبول' };
-            if (nilai >= 45) return { huruf: 'D',       arabHuruf: 'د',      bobot: 1.00, ket: 'Cukup', arabKet: 'مقبول' };
-            if (nilai >= 40) return { huruf: 'D minus', arabHuruf: 'د ناقص', bobot: 0.50, ket: 'Cukup', arabKet: 'مقبول' };
-            return { huruf: 'E', arabHuruf: 'هـ', bobot: 0.00, ket: 'Kurang', arabKet: 'راسب' };
+                function getGradeInfo(nilai) {
+            // Rentang 90 - 100
+            if (nilai >= 90) return { huruf: 'A', arabHuruf: 'أ', bobot: 4.00, ket: 'Istimewa', arabKet: 'ممتاز' };
+            // Rentang 80 - 89
+            if (nilai >= 80) return { huruf: 'B', arabHuruf: 'ب', bobot: 3.00, ket: 'Bagus Sekali', arabKet: 'جيد جدا' };
+            // Rentang 70 - 79
+            if (nilai >= 70) return { huruf: 'C', arabHuruf: 'ج', bobot: 2.00, ket: 'Bagus', arabKet: 'جيد' };
+            // Rentang 60 - 69
+            if (nilai >= 60) return { huruf: 'D', arabHuruf: 'د', bobot: 1.00, ket: 'Cukup', arabKet: 'مقبول' };
+            // Rentang < 60
+            return { huruf: 'E', arabHuruf: 'هـ', bobot: 0.00, ket: 'Kurang', arabKet: 'ناقص' };
         }
 
         onValue(ref(db, 'Master/Pengaturan/logoRapot'), (snap) => {
@@ -858,9 +855,9 @@
                                 <span class="font-arab font-bold text-base text-right w-full" dir="rtl">${res.arabKet}</span>
                             </div>
                         </td>
-                        <td class="p-1 border border-gray-400 align-middle font-bold text-sm ${warnaNilai} text-center">${nilaiRaw}</td>`;
+                        <td class="p-1 border border-gray-400 align-middle font-bold text-sm ${warnaNilai} text-center">${Math.round(nilaiRaw)}</td>`;
                 } else {
-                    barisHtml = `<td class="p-1 border border-gray-400 align-middle text-center text-gray-400" colspan="3">-</td>`;
+                    barisHtml = `<td class="p-1 border border-gray-400 align-middle text-center text-gray-400" colspan="3"></td>`;
                 }
 
                 html += `<tr>
@@ -868,23 +865,34 @@
                     <td class="p-1 border border-gray-400 align-middle">
                         <div class="flex justify-between items-center w-full px-2">
                             <span class="text-sm text-left text-slate-800">${mapel.nama}</span>
-                            <span class="font-arab font-bold text-lg text-right" dir="rtl">${mapel.namaArab || ''}</span>
+                            <span class="font-arab font-bold text-(12px) text-right" dir="rtl">${mapel.namaArab || ''}</span>
                         </div>
                     </td>
                     <td class="p-1 border border-gray-400 align-middle text-center font-arab text-base">${no++}</td>
                 </tr>`;
             }
-
-            document.getElementById('r_tbody').innerHTML = html;
+       
+             document.getElementById('r_tbody').innerHTML = html;
+             
+             let avgSiswa = jumlahMapelSiswa > 0 ? (totalNilaiSiswa / jumlahMapelSiswa) : 0;
             
             // MENGISI TOTAL NILAI INDIVIDU SANTRI
             document.getElementById('r_tbobot').innerText = totalNilaiSiswa;
             
             // MENGISI NILAI RATA-RATA INDIVIDU SANTRI (BARU)
             document.getElementById('r_avg_siswa').innerText = (jumlahMapelSiswa > 0 ? (totalNilaiSiswa / jumlahMapelSiswa) : 0).toFixed(2);
-
+            
             // MENGISI RATA-RATA KELAS (KONSTAN UNTUK SELURUH KELAS)
             document.getElementById('r_ip').innerText = (siswaAdaNilai > 0 ? (totalAvgKelas / siswaAdaNilai) : 0).toFixed(2);
+            
+             // SCRIPT BARU UNTUK KETERANGAN RATA-RATA SANTRI
+let predikatAvg = getGradeInfo(avgSiswa);
+document.getElementById('r_keterangan_avg').innerHTML = `
+    <div class="flex justify-center items-center w-full gap-3 text-[#8B6508]">
+        <span class="text-xs font-bold">${predikatAvg.ket}</span>
+        <span class="font-arab font-bold text-[14px]" dir="rtl">${predikatAvg.arabKet}</span>
+    </div>`;
+
 
             leaderboard.sort((a,b) => b.avg - a.avg);
             let rank = leaderboard.findIndex(l => l.id === idSiswa) + 1;
