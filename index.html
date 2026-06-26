@@ -877,7 +877,7 @@
              let avgSiswa = jumlahMapelSiswa > 0 ? (totalNilaiSiswa / jumlahMapelSiswa) : 0;
             
             // MENGISI TOTAL NILAI INDIVIDU SANTRI
-            document.getElementById('r_tbobot').innerText = totalNilaiSiswa;
+            document.getElementById('r_tbobot').innerText = totalNilaiSiswa.toFixed(1);
             
             // MENGISI NILAI RATA-RATA INDIVIDU SANTRI (BARU)
             document.getElementById('r_avg_siswa').innerText = (jumlahMapelSiswa > 0 ? (totalNilaiSiswa / jumlahMapelSiswa) : 0).toFixed(2);
