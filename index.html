@@ -188,7 +188,7 @@
                 </div>
             </section>
 
-            <section id="walikelas" class="content-section hidden-section">
+                                    <section id="walikelas" class="content-section hidden-section">
                 <div class="bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex justify-between items-center mb-4 border-b pb-3">
                         <h3 class="font-semibold text-lg">Input Kesungguhan & Kelulusan Santri (<span class="text-blue-600 idSemAktifText"></span>)</h3>
@@ -196,10 +196,11 @@
                             <option value="">-- Pilih Kelas --</option>
                         </select>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse mb-4">
-                            <thead>
-                                <tr class="bg-slate-100">
+                    
+                    <div class="overflow-x-auto overflow-y-auto mb-4 border rounded-lg" style="max-height: 50vh;">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="sticky top-0 bg-slate-100 z-10 shadow-sm">
+                                <tr>
                                     <th class="p-3 border-b">Nama Santri</th>
                                     <th class="p-3 border-b">Kesungguhan (المجاهدة)</th>
                                     <th class="p-3 border-b">Hasil Akhir (النتيجة)</th>
@@ -209,14 +210,15 @@
                                 <tr><td colspan="3" class="p-6 text-center text-gray-400 italic">Silakan pilih kelas terlebih dahulu.</td></tr>
                             </tbody>
                         </table>
-                        <button id="btnSimpanWali" onclick="simpanSemuaWaliSiswa()" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-bold shadow-md hidden">
-                            <i class="fas fa-save mr-2"></i>Simpan Semua Data Wali Kelas
-                        </button>
                     </div>
+                    
+                    <button id="btnSimpanWali" onclick="simpanSemuaWaliSiswa()" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-bold shadow-md hidden">
+                        <i class="fas fa-save mr-2"></i>Simpan Semua Data Wali Kelas
+                    </button>
                 </div>
             </section>
 
-            <section id="monitor" class="content-section hidden-section">
+                       <section id="monitor" class="content-section hidden-section">
                 <div class="bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex justify-between items-center mb-4 border-b pb-3">
                         <h3 class="font-semibold text-lg">Status Penginputan Nilai (Semester <span class="text-blue-600 idSemAktifText"></span>)</h3>
@@ -224,21 +226,24 @@
                             <option value="">-- Tampilkan Semua Kelas --</option>
                         </select>
                     </div>
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100">
-                                <th class="p-3 border-b">Kelas</th>
-                                <th class="p-3 border-b">Mata Pelajaran</th>
-                                <th class="p-3 border-b">Guru Pengampu</th>
-                                <th class="p-3 border-b">Status Pengisian</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableMonitor"></tbody>
-                    </table>
+                    
+                    <div class="overflow-y-auto border rounded-lg" style="max-height: 58vh;">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="sticky top-0 bg-slate-100 z-10 shadow-sm">
+                                <tr>
+                                    <th class="p-3 border-b">Kelas</th>
+                                    <th class="p-3 border-b">Mata Pelajaran</th>
+                                    <th class="p-3 border-b">Guru Pengampu</th>
+                                    <th class="p-3 border-b">Status Pengisian</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableMonitor"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <section id="pengumuman" class="content-section hidden-section">
+                        <section id="pengumuman" class="content-section hidden-section">
                 <div id="ui-pengumuman-controls" class="bg-white p-6 rounded-xl shadow-sm mb-6 flex gap-4 items-end">
                     <div class="flex-1">
                         <label class="block text-xs font-bold text-gray-500 mb-1">Pilih Marhalah (Gabungan Kelas)</label>
@@ -269,7 +274,7 @@
                 </div>
             </section>
 
-            <section id="cetak" class="content-section hidden-section">
+                        <section id="cetak" class="content-section hidden-section">
                 <div id="ui-cetak-controls" class="bg-white p-6 rounded-xl shadow-sm mb-6 flex gap-4">
                     <select id="cetakPilihKelas" onchange="loadSiswaUntukCetak()" class="border p-2 rounded flex-1 font-bold text-indigo-900 bg-slate-50"><option value="">Pilih Kelas...</option></select>
                     <select id="cetakPilihSiswa" class="border p-2 rounded flex-1 font-bold text-indigo-900 bg-slate-50"><option value="">Pilih Santri...</option></select>
