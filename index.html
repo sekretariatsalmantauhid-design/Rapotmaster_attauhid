@@ -655,6 +655,7 @@
                             <option value="ممتاز_Istimewa" ${currentData.kesungguhan === 'ممتاز_Istimewa' ? 'selected' : ''}>ممتاز (Istimewa)</option>
                             <option value="جيد جدا_Baik Sekali" ${currentData.kesungguhan === 'جيد جدا_Baik Sekali' ? 'selected' : ''}>جيد جدا (Baik Sekali)</option>
                             <option value="جيد_Baik" ${currentData.kesungguhan === 'جيد_Baik' ? 'selected' : ''}>جيد (Baik)</option>
+                            <option value="مقبول_Cukup" ${currentData.kesungguhan === 'مقبول_Cukup' ? 'selected' : ''}>مقبول (Cukup)</option>
                             <option value="ناقص_Kurang" ${currentData.kesungguhan === 'ناقص_Kurang' ? 'selected' : ''}>ناقص (Kurang)</option>
                         </select>
                     </td>
@@ -662,6 +663,7 @@
                         <select id="kelulusan_${idSiswa}" class="w-full border p-2 rounded text-sm bg-white focus:ring-2 focus:ring-blue-500 font-arab" dir="rtl">
                             <option value="">-- Pilih Hasil Akhir --</option>
                             <option value="ناجح_Lulus" ${currentData.kelulusan === 'ناجح_Lulus' ? 'selected' : ''}>ناجح (Lulus)</option>
+                            <option value="ناجح بالشروط_Lulus Bersyarat" ${currentData.kelulusan === 'ناجح بالشروط_Lulus Bersyarat' ? 'selected' : ''}>ناجح بااشروط (Lulus Bersyarat )</option>
                             <option value="راسب_Belum Lulus" ${currentData.kelulusan === 'راسب_Belum Lulus' ? 'selected' : ''}>راسب (Belum Lulus)</option>
                         </select>
                     </td>
