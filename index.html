@@ -20,7 +20,7 @@
             line-height: 1.6;
         }
 
-                /* PENGATURAN CETAK PDF DASAR */
+        /* PENGATURAN CETAK PDF DASAR */
         @media print {
             aside, header, .nav-btn, .content-section > div:first-child, #ui-cetak-controls, #ui-pengumuman-controls { 
                 display: none !important; 
@@ -188,7 +188,7 @@
                 </div>
             </section>
 
-                                    <section id="walikelas" class="content-section hidden-section">
+            <section id="walikelas" class="content-section hidden-section">
                 <div class="bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex justify-between items-center mb-4 border-b pb-3">
                         <h3 class="font-semibold text-lg">Input Kesungguhan & Kelulusan Santri (<span class="text-blue-600 idSemAktifText"></span>)</h3>
@@ -218,7 +218,7 @@
                 </div>
             </section>
 
-                       <section id="monitor" class="content-section hidden-section">
+            <section id="monitor" class="content-section hidden-section">
                 <div class="bg-white p-6 rounded-xl shadow-sm">
                     <div class="flex justify-between items-center mb-4 border-b pb-3">
                         <h3 class="font-semibold text-lg">Status Penginputan Nilai (Semester <span class="text-blue-600 idSemAktifText"></span>)</h3>
@@ -243,7 +243,7 @@
                 </div>
             </section>
 
-                        <section id="pengumuman" class="content-section hidden-section">
+            <section id="pengumuman" class="content-section hidden-section">
                 <div id="ui-pengumuman-controls" class="bg-white p-6 rounded-xl shadow-sm mb-6 flex gap-4 items-end">
                     <div class="flex-1">
                         <label class="block text-xs font-bold text-gray-500 mb-1">Pilih Marhalah (Gabungan Kelas)</label>
@@ -274,7 +274,7 @@
                 </div>
             </section>
 
-                        <section id="cetak" class="content-section hidden-section">
+            <section id="cetak" class="content-section hidden-section">
                 <div id="ui-cetak-controls" class="bg-white p-6 rounded-xl shadow-sm mb-6 flex gap-4">
                     <select id="cetakPilihKelas" onchange="loadSiswaUntukCetak()" class="border p-2 rounded flex-1 font-bold text-indigo-900 bg-slate-50"><option value="">Pilih Kelas...</option></select>
                     <select id="cetakPilihSiswa" class="border p-2 rounded flex-1 font-bold text-indigo-900 bg-slate-50"><option value="">Pilih Santri...</option></select>
@@ -296,10 +296,10 @@
                             </div>
 
                             <div class="text-center flex-1 px-4">
-                                <h1 class="font-arab text-[#8B6508] mb-0.5 font-bold tracking-wide" style="font-size: 1.8rem;">معهد التوحيد لتحفيظ القرآن والحديث</h1>
-                                <h2 class="text-sm font-bold text-gray-800 uppercase tracking-widest mb-1">Pondok Pesantren Ma'had At Tauhid Al Islami Gresik</h2>
-                                <p id="r_teksArabTahun" class="text-sm font-arab text-gray-600 mb-0.5" dir="rtl">السجل العام لنتائج القسم في الفصل الدراسي العام</p>
-                                <p id="r_teksIndoTahun" class="text-[9px] font-bold text-gray-700 uppercase">LAPORAN HASIL NILAI SEMESTER TAHUN AJARAN</p>
+                                <h1 class="font-arab text-[#8B6508] mb-0.5 font-bold tracking-wide" style="font-size: 2.2rem;">معهد التوحيد لتحفيظ القرآن والحديث</h1>
+                                <h2 class="text-base font-bold text-gray-800 uppercase tracking-widest mb-1">Pondok Pesantren Ma'had At Tauhid Al Islami Gresik</h2>
+                                <p id="r_teksArabTahun" class="text-base font-arab text-gray-600 mb-0.5" dir="rtl">السجل العام لنتائج القسم في الفصل الدراسي العام</p>
+                                <p id="r_teksIndoTahun" class="text-xs font-bold text-gray-700 uppercase">LAPORAN HASIL NILAI SEMESTER TAHUN AJARAN</p>
                             </div>
                         </div>
 
@@ -318,11 +318,11 @@
                         <table class="w-full text-center border-collapse text-sm mb-3 table-fixed print-kompres-tabel">
                             <thead id="r_thead" class="text-white bg-[#2E5B32]">
                                 <tr>
-                                    <th class="p-1 border border-gray-400 w-[15%] align-middle text-[10px]">CATATAN<br><span class="font-arab font-normal text-sm">ملاحظات</span></th>
-                                    <th class="p-1 border border-gray-400 w-[20%] align-middle text-[10px]">KET<br><span class="font-arab font-normal text-sm">التقدير</span></th>
-                                    <th class="p-1 border border-gray-400 w-[15%] align-middle text-[10px]">NILAI<br><span class="font-arab font-normal text-sm">النتيجة</span></th>
-                                    <th class="p-1 border border-gray-400 w-[40%] align-middle text-[10px]">MAPEL<br><span class="font-arab font-normal text-sm">المادة</span></th>
-                                    <th class="p-1 border border-gray-400 w-[10%] align-middle text-[10px]">NO<br><span class="font-arab font-normal text-sm">الرقم</span></th>
+                                    <th class="p-1 border border-gray-400 w-[15%] align-middle text-[10px]">CATATAN<br><span class="font-arab font-normal text-base">ملاحظات</span></th>
+                                    <th class="p-1 border border-gray-400 w-[20%] align-middle text-[10px]">KET<br><span class="font-arab font-normal text-base">التقدير</span></th>
+                                    <th class="p-1 border border-gray-400 w-[15%] align-middle text-[10px]">NILAI<br><span class="font-arab font-normal text-base">النتيجة</span></th>
+                                    <th class="p-1 border border-gray-400 w-[40%] align-middle text-[10px]">MAPEL<br><span class="font-arab font-normal text-base">المادة</span></th>
+                                    <th class="p-1 border border-gray-400 w-[10%] align-middle text-[10px]">NO<br><span class="font-arab font-normal text-base">الرقم</span></th>
                                 </tr>
                             </thead>
                             <tbody id="r_tbody"></tbody>
@@ -334,33 +334,33 @@
                                     <div class="font-bold text-sm text-blue-900" id="r_ip">0.00</div>
                                     <div class="text-[9px] uppercase mt-0.5 text-gray-600 font-bold">Rata-Rata Kelas</div>
                                 </td>
-                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-base bg-gray-50" dir="rtl">المعدل الفصلي</td>
+                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-lg bg-gray-50" dir="rtl">المعدل الفصلي</td>
                                 <td class="border border-gray-400 align-middle w-1/4 p-1 bg-gray-50">
                                     <div class="font-bold text-sm" id="r_tbobot">0.00</div>
                                     <div class="text-[9px] uppercase mt-0.5 text-gray-600 font-bold">Total Nilai</div>
                                 </td>
-                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-base bg-gray-50" dir="rtl">النتيجة الإجمالية</td>
+                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-lg bg-gray-50" dir="rtl">النتيجة الإجمالية</td>
                             </tr>
                             <tr>
                                 <td class="border border-gray-400 align-middle w-1/4 p-1 bg-gray-50">
                                     <div class="font-bold text-sm text-blue-900" id="r_avg_siswa">0.00</div>
                                     <div class="text-[9px] uppercase mt-0.5 text-gray-600 font-bold">Nilai Rata-Rata</div>
                                 </td>
-                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-base bg-gray-50" dir="rtl">المعدل النتيجة</td>
-                <td class="border border-gray-400 align-middle p-1 bg-gray-50 text-center" colspan="2">
-    <div class="font-bold text-sm text-black" id="r_rank">-</div>
-    <div class="text-[9px] uppercase mt-0.5 text-gray-600 font-bold">Peringkat Kelas</div>
-    <span id="r_totalSiswa" class="hidden">0</span>
-</td>
+                                <td class="border border-gray-400 align-middle w-1/4 p-1 font-arab font-bold text-lg bg-gray-50" dir="rtl">المعدل النتيجة</td>
+                                <td class="border border-gray-400 align-middle p-1 bg-gray-50 text-center" colspan="2">
+                                    <div class="font-bold text-sm text-black" id="r_rank">-</div>
+                                    <div class="text-[9px] uppercase mt-0.5 text-gray-600 font-bold">Peringkat Kelas</div>
+                                    <span id="r_totalSiswa" class="hidden">0</span>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-400 align-middle p-1 bg-gray-50" colspan="2"id="r_keterangan_avg"></td>
+                                <td class="border border-gray-400 align-middle p-1 bg-gray-50" colspan="2" id="r_keterangan_avg"></td>
                                 <td class="border border-gray-400 align-middle p-1 text-center font-bold" id="r_kesungguhan"></td>
-                                <td class="border border-gray-400 align-middle p-1 font-arab font-bold text-sm" dir="rtl">المجاهدة : <span class="font-sans font-normal text-[9px] ml-1 text-gray-600">Kesungguhan Santri</span></td>
+                                <td class="border border-gray-400 align-middle p-1 font-arab font-bold text-base" dir="rtl">المجاهدة : <span class="font-sans font-normal text-[9px] ml-1 text-gray-600">Kesungguhan Santri</span></td>
                             </tr>
                             <tr id="r_tfoot" class="text-white bg-[#2E5B32] font-bold">
                                 <td class="border border-gray-400 align-middle p-2 text-left px-4 tracking-wider text-xs" colspan="3" id="r_hasil_akhir_kiri"></td>
-                                <td class="border border-gray-400 align-middle p-2 text-right px-4 tracking-wider text-xs" colspan="1"><span class="font-arab mr-3 text-sm">النتيجة /</span> Hasil</td>
+                                <td class="border border-gray-400 align-middle p-2 text-right px-4 tracking-wider text-xs" colspan="1"><span class="font-arab mr-3 text-base">النتيجة /</span> Hasil</td>
                             </tr>
                         </table>
 
@@ -410,7 +410,7 @@
         let editMapelId = null; let editGuruId = null;
         let unsubKelas = null, unsubMapel = null, unsubGuru = null, unsubNilai = null, unsubWaliKelas = null;
 
-                function getGradeInfo(nilai) {
+        function getGradeInfo(nilai) {
             // Pengaturan warna dinamis: Istimewa (Emas), Kurang (Merah), Lainnya (Hitam)
             if (nilai >= 90) return { huruf: 'A', arabHuruf: 'أ', bobot: 4.00, ket: 'Istimewa', arabKet: 'ممتاز', warna: 'text-[#8B6508]' }; // Emas
             if (nilai >= 80) return { huruf: 'B', arabHuruf: 'ب', bobot: 3.00, ket: 'Bagus Sekali', arabKet: 'جيد جدا', warna: 'text-black' }; // Hitam
@@ -418,8 +418,6 @@
             if (nilai >= 60) return { huruf: 'D', arabHuruf: 'د', bobot: 1.00, ket: 'Cukup', arabKet: 'مقبول', warna: 'text-black' }; // Hitam
             return { huruf: 'E', arabHuruf: 'هـ', bobot: 0.00, ket: 'Kurang', arabKet: 'ناقص', warna: 'text-red-600' }; // Merah
         }
-
-
 
         onValue(ref(db, 'Master/Pengaturan/logoRapot'), (snap) => {
             const b64 = snap.val();
@@ -663,7 +661,7 @@
                         <select id="kelulusan_${idSiswa}" class="w-full border p-2 rounded text-sm bg-white focus:ring-2 focus:ring-blue-500 font-arab" dir="rtl">
                             <option value="">-- Pilih Hasil Akhir --</option>
                             <option value="ناجح_Lulus" ${currentData.kelulusan === 'ناجح_Lulus' ? 'selected' : ''}>ناجح (Lulus)</option>
-                            <option value="ناجح بالشروط_Lulus Bersyarat" ${currentData.kelulusan === 'ناجح بالشروط_Lulus Bersyarat' ? 'selected' : ''}>ناجح بااشروط (Lulus Bersyarat )</option>
+                            <option value="ناجح بشروط_Lulus Bersyarat" ${currentData.kelulusan === 'ناجح بشروط_Lulus Bersyarat' ? 'selected' : ''}>ناجح بشروط (Lulus Bersyarat)</option>
                             <option value="راسب_Belum Lulus" ${currentData.kelulusan === 'راسب_Belum Lulus' ? 'selected' : ''}>راسب (Belum Lulus)</option>
                         </select>
                     </td>
@@ -821,11 +819,11 @@
                     let warnaNilai = (nilaiRaw < 60) ? "text-red-600" : "text-black";
                     
                     barisHtml = `
-                        <td class="p-1 border border-gray-400 font-arab text-[10px] text-gray-500 align-middle text-center" dir="rtl">-</td>
+                        <td class="p-1 border border-gray-400 font-arab text-base text-gray-500 align-middle text-center" dir="rtl">-</td>
                         <td class="p-1 border border-gray-400 align-middle ${res.warna}">
                             <div class="flex justify-between items-center w-full px-1">
                                 <span class="text-xs text-left">${res.ket}</span>
-                                <span class="font-arab font-bold text-(13px) text-right w-full" dir="rtl">${res.arabKet}</span>
+                                <span class="font-arab font-bold text-base text-right w-full" dir="rtl">${res.arabKet}</span>
                             </div>
                         </td>
                         <td class="p-1 border border-gray-400 align-middle font-bold text-sm ${warnaNilai} text-center">${Math.round(nilaiRaw)}</td>`;
@@ -838,7 +836,7 @@
                     <td class="p-1 border border-gray-400 align-middle">
                         <div class="flex justify-between items-center w-full px-2">
                             <span class="text-sm text-left text-slate-800">${mapel.nama}</span>
-                            <span class="font-arab font-bold text-(13px) text-right" dir="rtl">${mapel.namaArab || ''}</span>
+                            <span class="font-arab font-bold text-base text-right" dir="rtl">${mapel.namaArab || ''}</span>
                         </div>
                     </td>
                     <td class="p-1 border border-gray-400 align-middle text-center font-arab text-base">${no++}</td>
@@ -857,7 +855,7 @@
             document.getElementById('r_keterangan_avg').innerHTML = `
                 <div class="flex justify-center items-center w-full gap-3 ${predikatAvg.warna}">
                     <span class="text-xs font-bold">${predikatAvg.ket}</span>
-                    <span class="font-arab font-bold text-[14px]" dir="rtl">${predikatAvg.arabKet}</span>
+                    <span class="font-arab font-bold text-base" dir="rtl">${predikatAvg.arabKet}</span>
                 </div>`;
 
             leaderboard.sort((a,b) => b.avg - a.avg);
@@ -875,7 +873,7 @@
             document.getElementById('r_kesungguhan').innerHTML = `
                 <div class="flex justify-between items-center w-full px-2">
                     <span class="text-xs text-left text-slate-800">${teksKesungguhanId}</span>
-                    <span class="font-arab font-bold text-base text-right" dir="rtl">${teksKesungguhanAr}</span>
+                    <span class="font-arab font-bold text-lg text-right" dir="rtl">${teksKesungguhanAr}</span>
                 </div>`;
 
             let teksKelulusanAr = '-'; let teksKelulusanId = '-';
@@ -885,7 +883,7 @@
             }
             
             document.getElementById('r_hasil_akhir_kiri').innerHTML = `
-                <span class="font-arab mx-4 text-lg">${teksKelulusanAr}</span> <span class="font-sans font-normal ml-1 text-sm">${teksKelulusanId}</span>`;
+                <span class="font-arab mx-4 text-xl">${teksKelulusanAr}</span> <span class="font-sans font-normal ml-1 text-sm">${teksKelulusanId}</span>`;
 
             let tgl = new Date();
             document.getElementById('r_tglIndo').innerText = `${tgl.getDate()} ${tgl.toLocaleString('id-ID',{month:'long'})} ${tgl.getFullYear()}`;
@@ -901,7 +899,6 @@
         function populateDropdownMarhalah() {
             let marhalahSet = new Set();
             for(let id in masterKelas) {
-                // Ambil kata pertama dari nama kelas sebagai Marhalah (misal: "Aly 1" -> "Aly")
                 let kataPertama = masterKelas[id].nama.trim().split(' ')[0];
                 if(kataPertama) marhalahSet.add(kataPertama);
             }
@@ -912,7 +909,7 @@
             document.getElementById('pilihMarhalah').innerHTML = html;
         }
 
-                        // --- SISTEM PENGUMUMAN NILAI (MADING) PER KELAS ---
+        // --- SISTEM PENGUMUMAN NILAI (MADING) PER KELAS ---
         window.generatePengumuman = function() {
             const marhalah = document.getElementById('pilihMarhalah').value;
             if(!marhalah) {
@@ -926,7 +923,6 @@
             let namaSem = arrTahun[1] === 'Ganjil' ? 'GANJIL (1)' : 'GENAP (2)';
             let teksSemester = `${namaSem} - T.A ${arrTahun[0]}/${parseInt(arrTahun[0])+1}`;
 
-            // Kumpulkan Kelas dalam Marhalah ini
             let kelasIds = [];
             for(let id in masterKelas) {
                 if(masterKelas[id].nama.trim().startsWith(marhalah)) {
@@ -936,11 +932,9 @@
 
             let allHtml = '';
 
-            // LOOPING: Buat tabel terpisah untuk setiap kelas
             kelasIds.forEach((idK, index) => {
                 const kObj = masterKelas[idK];
                 
-                // Ambil Mapel KHUSUS untuk kelas ini saja (tidak ada kolom ganda)
                 let mapelKelasIni = [];
                 for(let idM in masterMapel) {
                     if(masterMapel[idM].idKelas === idK) {
@@ -950,7 +944,8 @@
                 
                 let thMapel = '';
                 mapelKelasIni.forEach(m => {
-                    thMapel += `<th class="border border-black font-arab text-sm text-gray-700">${m.namaArab}</th>`;
+                    // FONT ARAB DIBESARKAN (text-base)
+                    thMapel += `<th class="border border-black font-arab text-base text-gray-700">${m.namaArab}</th>`;
                 });
 
                 let siswaData = [];
@@ -981,7 +976,6 @@
                     siswaData.push(sData);
                 }
 
-                // Ranking Siswa DI DALAM KELAS INI SAJA
                 siswaData.sort((a, b) => b.rataRata - a.rataRata);
 
                 let tbodyHtml = '';
@@ -990,7 +984,6 @@
                     let tdMapel = '';
                     mapelKelasIni.forEach(m => {
                         let nilai = s.nilaiPerMapel[m.id];
-                        // Aturan Merah: Kurang dari 60 (< 60)
                         let classWarna = (nilai !== '-' && nilai < 60) ? 'text-red-600 font-bold' : '';
                         tdMapel += `<td class="border border-black p-1 text-center font-bold ${classWarna}">${nilai}</td>`;
                     });
@@ -1002,7 +995,7 @@
                         <td class="border border-black p-1 text-center font-bold">${s.rataRata.toFixed(2)}</td>
                         <td class="border border-black p-1 text-center font-bold">${s.totalNilai.toFixed(0)}</td>
                         ${tdMapel}
-                        <td class="border border-black p-2 text-right font-arab text-lg font-bold text-gray-800" dir="rtl">${s.namaArab}</td>
+                        <td class="border border-black p-2 text-right font-arab text-xl font-bold text-gray-800" dir="rtl">${s.namaArab}</td>
                     </tr>`;
                 });
 
@@ -1010,7 +1003,6 @@
                     tbodyHtml = `<tr><td colspan="${mapelKelasIni.length + 5}" class="text-center p-8 italic text-gray-500">Tidak ada data santri pada kelas ini.</td></tr>`;
                 }
 
-                // SCRIPT PEMISAH HALAMAN: Setiap tabel beda kelas akan otomatis pindah halaman baru
                 let pageBreakStyle = (index < kelasIds.length - 1) ? 'page-break-after: always;' : '';
 
                 allHtml += `
@@ -1049,7 +1041,7 @@
             document.getElementById('pengumumanContainerOuter').innerHTML = allHtml;
         };
 
-                      // 1. SCRIPT CETAK MADING PENGUMUMAN NILAI (FOLIO/F4 - RESPONSIVE FILL-PAGE)
+        // 1. SCRIPT CETAK MADING PENGUMUMAN NILAI (FOLIO/F4 - RESPONSIVE FILL-PAGE)
         window.downloadPDFPengumuman = function() {
             const body = document.getElementById('bodyMain');
             body.classList.remove('flex', 'h-screen', 'overflow-hidden');
@@ -1059,7 +1051,6 @@
             
             printStyle.innerHTML = `
                 @media print { 
-                    /* Margin diatur 8mm agar pas, tidak terlalu mepet tapi sangat luas */
                     @page { size: 330mm 215mm; margin: 8mm; } 
                     
                     #cetak, #rapotContainerOuter { display: none !important; }
@@ -1067,11 +1058,10 @@
                         display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important;
                     }
                     
-                    /* Halaman melar 100% mengikuti kertas */
                     .page-mading {
                         width: 100% !important;
                         max-width: 100% !important;
-                        height: 195mm !important; /* Memaksa isi memenuhi hampir seluruh tinggi F4 */
+                        height: 195mm !important;
                         display: flex !important; flex-direction: column !important;
                         page-break-after: always !important;
                         margin: 0 !important;
@@ -1080,7 +1070,6 @@
                     * { font-family: Arial, Helvetica, sans-serif !important; letter-spacing: -0.1px !important; }
                     .font-arab { font-family: 'Traditional Arabic', serif !important; letter-spacing: 0 !important; }
                     
-                    /* Tabel melar (flex-grow) untuk mengisi ruang kosong */
                     table.tabel-mading { 
                         width: 100% !important; 
                         flex-grow: 1 !important; 
@@ -1089,18 +1078,18 @@
                         border: 2px solid black !important; 
                     }
                     
-                    /* Ukuran font ditingkatkan agar terlihat lebih besar di kertas luas */
+                    /* UKURAN FONT ARAB DI MADING PDF DIPERBESAR MUTLAK */
+                    .tabel-mading .font-arab { font-size: 16px !important; }
+
                     .tabel-mading th { font-size: 10px !important; padding: 6px 2px !important; border: 1px solid black !important; background-color: #f0f0f0 !important; }
                     .tabel-mading td { font-size: 14px !important; font-weight: bold !important; padding: 8px 2px !important; border: 1px solid black !important; }
                     
-                    /* Pengaturan lebar kolom agar tabel terlihat penuh dan mantap */
                     .tabel-mading th:nth-child(1) { width: 4% !important; }
                     .tabel-mading th:nth-child(2) { width: 5% !important; }
                     .tabel-mading th:nth-child(3) { width: 7% !important; }
                     .tabel-mading th:nth-child(4) { width: 7% !important; }
                     .tabel-mading th:last-child { width: 18% !important; }
                     
-                    /* Kop tetap di atas */
                     h1 { font-size: 1.5rem !important; margin: 0 !important; }
                     h2 { font-size: 1rem !important; margin-bottom: 5px !important; }
                 }
@@ -1128,8 +1117,15 @@
                     
                     .print-kompres-header { margin-bottom: 4px !important; padding-bottom: 4px !important; }
                     .print-kompres-tabel th, .print-kompres-tabel td { padding: 3px !important; font-size: 11px !important; }
+                    
+                    /* UKURAN FONT ARAB DI RAPOT PDF DIPERBESAR MUTLAK */
+                    .print-kompres-tabel .font-arab { font-size: 15px !important; }
+
                     .ttd-spasi { margin-bottom: 15px !important; }
-                    h1 { font-size: 1.4rem !important; }
+
+                    /* KOP RAPOT DIPERBESAR MUTLAK SAAT PRINT */
+                    h1 { font-size: 2.2rem !important; }
+                    
                     body { line-height: 1.3 !important; }
                 }
             `;
